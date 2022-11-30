@@ -1,8 +1,9 @@
 # TODO
 
 ## Rotary Encoder Motors
-- [ ] control motor pas distanceToObject < 20cm
-- [ ] install AFMotor? (https://learn.adafruit.com/adafruit-motor-shield/library-install ; )
+- [ ] set max speed
+- [ ] control motor when distanceToObject < 20cm
+- [ ] install AFMotor? (https://learn.adafruit.com/adafruit-motor-shield/library-install)
 
 ## Sensor
 - [ ] detect object
