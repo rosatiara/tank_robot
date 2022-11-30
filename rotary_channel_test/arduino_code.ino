@@ -1,5 +1,5 @@
 const int motorDirPin = 5; // input 1, input 2
-const int motorPWMPin =6 ; // input 3, input 4
+const int motorPWMPin = 6; // input 3, input 4
 
 const int LED = 13;
 
