@@ -1,5 +1,5 @@
 const int motorDirPin = 5; // input 1, input 2
-const int motorPWMPin = 6; // input 3, input 4
+const int motorPWMPin =6 ; // input 3, input 4
 
 const int LED = 13;
 
@@ -13,7 +13,7 @@ const float ratio = 360./188.611/48.;
 float Kp = 30;
 float targetDeg = 360;
 
-void doEncoder() {
+void doEncoder(){
   if (digitalRead(encoderPinA) == digitalRead(encoderPinB)) {
     encoderPos += 1;
   }
@@ -23,13 +23,14 @@ void doEncoder() {
 }
 
 
-void doMotor(bool dir, int vel) {
-  digitalWrite(motorDirPin, dir);
+void doMotor(bool dir, int vel){
+  digitalWrite(motorDirPin, dir); // arah motor => 1 = counter-clockwise (maju); 
+  // 0 = clockwise (mundur)
   digitalWrite(LED, dir);
   analogWrite(motorPWMPin, dir?(255 - vel):vel);
 }
 
-void setup() {
+void setup(){
   Serial.begin(9600);
   
   pinMode(encoderPinA, INPUT_PULLUP);
@@ -40,17 +41,18 @@ void setup() {
   pinMode(motorDirPin, OUTPUT);
 }
 
-void loop() {
+void loop(){
   float motorDeg = float(encoderPos)*ratio;
   
   float error = targetDeg - motorDeg;
   float control = Kp*error;
 
-  doMotor((control>=0)?HIGH:LOW, min(abs(control), 255)); 
+  doMotor((control>=0)?HIGH:LOW, min(abs(control), 255)); // maju
   
-  // if control >= 0, doMotor()
-  //	dir = min(abs(control)))
-  //	vel = 255
+  // ambil sensor depan, detect jarak sensor depan ke object
+  // if (frontDistance < 20cm)
+  //	doMotor(LOW, min(abs(control), 255); // motor mundur
+  
   
   // debug encoder pin
   Serial.print("encoderPinA: ");
@@ -69,4 +71,5 @@ void loop() {
   Serial.print(control);
   Serial.print("    motorVel : ");
   Serial.println(min(abs(control), 255)); 
+
 }
