@@ -1,19 +1,24 @@
 // motor kiri (oren)
-const int motorDirPin = 5; // done
-const int motorPWMPin = 6; // done
-const int enablePin1 = 7;
+const int motorDirPinL = 5; // done
+const int motorPWMPinL = 6; // done
+const int enablePinL = 7;
 
 // motor kanan (kuning)
-const int motorDirPin2 = 9; //
-const int motorPWMPin2 = 10; //
-const int enablePin2 = 8;//
+const int motorDirPinR = 9; //
+const int motorPWMPinR = 10; //
+const int enablePinR = 8;//
 
-const int encoderPinA = 2;
-const int encoderPinB = 3;
+// channel A & B motor kiri
+const int encoderPinAL = 2; 
+const int encoderPinBL = 3;
 
-// motor kanan
-const int encoderPinA2 = 12;
-const int encoderPinB2 = 13;
+const int powerPinL = A0;
+const int powerPinR = A1;
+
+
+// channel A & B motor kanan
+const int encoderPinAR = 12;
+const int encoderPinBR = 13;
 int encoderPos = 0;
 
 const float ratio = 360./188.611/48.;
@@ -21,45 +26,55 @@ const float ratio = 360./188.611/48.;
 float Kp = 30;
 float targetDeg = 360;
 
-void doEncoderA() {  
-  encoderPos += (digitalRead(encoderPinA)==digitalRead(encoderPinB))?1:-1;
+void doEncoderAL() {  
+  encoderPos += (digitalRead(encoderPinAL)==digitalRead(encoderPinBL))?1:-1;
 }
-void doEncoderB() {  
-  encoderPos += (digitalRead(encoderPinA)==digitalRead(encoderPinB))?-1:1;
-}
-
-void doEncoderA2() {
-  encoderPos += (digitalRead(encoderPinA2)==digitalRead(encoderPinB2))?1:-1;
+void doEncoderBL() {  
+  encoderPos += (digitalRead(encoderPinAL)==digitalRead(encoderPinBL))?-1:1;
 }
 
-void doEncoderB2(){
-  encoderPos += (digitalRead(encoderPinA2)==digitalRead(encoderPinB2))?-1:1;
+void doEncoderAR() {
+  encoderPos += (digitalRead(encoderPinAR)==digitalRead(encoderPinBR))?1:-1;
+}
+
+void doEncoderBR(){
+  encoderPos += (digitalRead(encoderPinAR)==digitalRead(encoderPinBR))?-1:1;
 }
 
 void doMotor(bool dir, int vel) {
-  digitalWrite(motorDirPin, dir);
-  analogWrite(motorPWMPin, dir?(255 - vel):vel);
+  digitalWrite(motorDirPinL, dir);
+  analogWrite(motorPWMPinL, dir?(255 - vel):vel);
   
-  digitalWrite(motorDirPin2, dir);
-  analogWrite(motorPWMPin2, dir?(255 - vel):vel);
+  digitalWrite(motorDirPinR, dir);
+  analogWrite(motorPWMPinR, dir?(255 - vel):vel);
 }
 
 void setup() {
   Serial.begin(1200);
+
+  pinMode(powerPinL, OUTPUT);
+  digitalWrite(powerPinL, HIGH);
+
   
-  pinMode(encoderPinA, INPUT_PULLUP);
-  attachInterrupt(0, doEncoderA, CHANGE);
+  pinMode(powerPinR, OUTPUT);
+  digitalWrite(powerPinR, HIGH);
   
-  pinMode(encoderPinB, INPUT_PULLUP);
-  attachInterrupt(1, doEncoderB, CHANGE);
   
-  pinMode(encoderPinA2, INPUT_PULLUP);
-  attachInterrupt(0, doEncoderA2, CHANGE);
+  pinMode(encoderPinAL, INPUT_PULLUP);
+  attachInterrupt(0, doEncoderAL, CHANGE);
   
-  pinMode(encoderPinB2, INPUT_PULLUP);
-  attachInterrupt(1, doEncoderB2, CHANGE);
+  pinMode(encoderPinBL, INPUT_PULLUP);
+  attachInterrupt(1, doEncoderBL, CHANGE);
   
-  pinMode(motorDirPin, OUTPUT);
+  pinMode(encoderPinAR, INPUT_PULLUP);
+  attachInterrupt(0, doEncoderAR, CHANGE);
+  
+  pinMode(encoderPinBR, INPUT_PULLUP);
+  attachInterrupt(1, doEncoderBR, CHANGE);
+  
+  pinMode(motorDirPinL, OUTPUT);
+  pinMode(motorDirPinR, OUTPUT);
+
 }
 
 void loop() {
