@@ -1,17 +1,17 @@
-// motor kiri (oren)
+// motor kiri
 const int motorDirPinL = 5; // done
 const int motorPWMPinL = 6; // done
 const int enablePinL = 7;
-const int encoderPinAL = 2; // channel A & B motor kiri
-const int encoderPinBL = 3;
+const int channelPinAL = 2; // channel A & B motor kiri
+const int channelPinBL = 3;
 const int powerPinL = A0;
 
-// motor kanan (kuning)
+// motor kanan
 const int motorDirPinR = 9; //
 const int motorPWMPinR = 10; //
 const int enablePinR = 8; //
-const int encoderPinAR = 12;
-const int encoderPinBR = 13;
+const int channelPinAR = 12;
+const int channelPinBR = 13;
 const int powerPinR = A1;
 
 int encoderPos = 0;
@@ -29,14 +29,14 @@ void setup() {
   pinMode(powerPinR, OUTPUT);
   digitalWrite(powerPinR, HIGH);
   
-  pinMode(encoderPinAL, INPUT_PULLUP);
+  pinMode(channelPinAL, INPUT_PULLUP);
   attachInterrupt(0, doEncoderAL, CHANGE);
-  pinMode(encoderPinBL, INPUT_PULLUP);
+  pinMode(channelPinBL, INPUT_PULLUP);
   attachInterrupt(1, doEncoderBL, CHANGE);
   
-  pinMode(encoderPinAR, INPUT_PULLUP);
+  pinMode(channelPinAR, INPUT_PULLUP);
   attachInterrupt(0, doEncoderAR, CHANGE);
-  pinMode(encoderPinBR, INPUT_PULLUP);
+  pinMode(channelPinBR, INPUT_PULLUP);
   attachInterrupt(1, doEncoderBR, CHANGE);
   
   pinMode(motorDirPinL, OUTPUT);
@@ -64,17 +64,17 @@ void loop() {
 }
 
 void doEncoderAL() {  
-  encoderPos += (digitalRead(encoderPinAL)==digitalRead(encoderPinBL))?1:-1;
+  encoderPos += (digitalRead(channelPinAL)==digitalRead(channelPinBL))?1:-1;
 }
 void doEncoderBL() {  
-  encoderPos += (digitalRead(encoderPinAL)==digitalRead(encoderPinBL))?-1:1;
+  encoderPos += (digitalRead(channelPinAL)==digitalRead(channelPinBL))?-1:1;
 }
 
 void doEncoderAR() {
-  encoderPos += (digitalRead(encoderPinAR)==digitalRead(encoderPinBR))?1:-1;
+  encoderPos += (digitalRead(channelPinAR)==digitalRead(channelPinBR))?1:-1;
 }
 void doEncoderBR(){
-  encoderPos += (digitalRead(encoderPinAR)==digitalRead(encoderPinBR))?-1:1;
+  encoderPos += (digitalRead(channelPinAR)==digitalRead(channelPinBR))?-1:1;
 }
 
 void doMotor(bool dir, int vel) {
