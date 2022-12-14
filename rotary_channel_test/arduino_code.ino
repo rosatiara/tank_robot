@@ -1,13 +1,12 @@
-// motor kiri
-const int motorDirPin = 5;
-const int motorPWMPin = 6;
+// motor kiri (oren)
+const int motorDirPin = 5; // done
+const int motorPWMPin = 6; // done
 const int enablePin1 = 7;
 
-// motor kanan 
-const int enablePin2 = 8;
-const int motorDirPin2 = 9; 
-const int motorPWMPin2 = 10;
-const int LED = 13;
+// motor kanan (kuning)
+const int motorDirPin2 = 9; //
+const int motorPWMPin2 = 10; //
+const int enablePin2 = 8;//
 
 const int encoderPinA = 2;
 const int encoderPinB = 3;
@@ -39,11 +38,9 @@ void doEncoderB2(){
 
 void doMotor(bool dir, int vel) {
   digitalWrite(motorDirPin, dir);
-  digitalWrite(LED, dir);
   analogWrite(motorPWMPin, dir?(255 - vel):vel);
   
   digitalWrite(motorDirPin2, dir);
-  digitalWrite(LED, dir);
   analogWrite(motorPWMPin2, dir?(255 - vel):vel);
 }
 
@@ -62,7 +59,6 @@ void setup() {
   pinMode(encoderPinB2, INPUT_PULLUP);
   attachInterrupt(1, doEncoderB2, CHANGE);
   
-  pinMode(LED, OUTPUT);
   pinMode(motorDirPin, OUTPUT);
 }
 
