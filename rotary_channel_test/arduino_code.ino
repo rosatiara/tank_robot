@@ -7,9 +7,9 @@ const int channelPinBL = 3;
 const int powerPinL = A0;
 
 // motor kanan
-const int motorDirPinR = 9; //
-const int motorPWMPinR = 10; //
-const int enablePinR = 8; //
+const int motorDirPinR = 9;//done
+const int motorPWMPinR = 10;//done
+const int enablePinR = 8; 
 const int channelPinAR = 12;
 const int channelPinBR = 13;
 const int powerPinR = A1;
@@ -40,8 +40,10 @@ void setup() {
   attachInterrupt(1, doEncoderBR, CHANGE);
   
   pinMode(motorDirPinL, OUTPUT);
-  pinMode(motorDirPinR, OUTPUT);
 
+  pinMode(motorDirPinR, OUTPUT);
+  digitalWrite(enablePinL, HIGH);
+  digitalWrite(enablePinR, HIGH);
 }
 
 void loop() {
