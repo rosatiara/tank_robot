@@ -1,10 +1,11 @@
 boolean normal = true;
+int dist = 0;
 
 // motor pins
 const int motorDirPinL = 5;
-const int motorPWMPinL = 6;
+const int motorPWMPinL = 6; 
 const int enablePinL = 7;
-const int channelPinAL = 2;
+const int channelPinAL = 2; 
 const int channelPinBL = 3;
 const int powerPinL = A0;
 const int motorDirPinR = 9;
@@ -66,7 +67,6 @@ void setup() {
 
 
 void loop() {
-  checkABC();
   float motorDeg = float(encoderPos)*ratio;
   float error = targetDeg - motorDeg;
   float control = Kp*error;
@@ -81,11 +81,14 @@ void loop() {
   Serial.print(control);
   Serial.print("    motorVel : ");
   Serial.println(min(abs(control), 255));
-  
+
+
+  // checkABC();
   while (normal) {
     doMotor((control>=0)?HIGH:LOW, min(abs(control), 255)); 
-    }
+  }
     // if (front sensor detected)
+    // normal = !normal;
     doMotor((control>=0)?LOW:HIGH, min(abs(control), 255)); 
 }
 
