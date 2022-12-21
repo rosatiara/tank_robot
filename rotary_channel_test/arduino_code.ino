@@ -1,5 +1,5 @@
-boolean normal = true;
-
+boolean normal = true; // normal = true;
+int testVal = 1;
 const int motorDirPinL = 5; // done
 const int motorPWMPinL = 6; // done
 const int enablePinL = 7;
@@ -64,9 +64,10 @@ void loop() {
   
   while (normal) {
     doMotor((control>=0)?HIGH:LOW, min(abs(control), 255)); 
-    }
-    // if (front sensor detected)
+    if (testVal == 1) // check if front sensor is detected
+    normal = !normal;
     doMotor((control>=0)?LOW:HIGH, min(abs(control), 255)); 
+    }
 }
 
 void doEncoderAL() {  
