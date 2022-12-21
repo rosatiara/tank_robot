@@ -1,14 +1,14 @@
 boolean normal = true;
 
 // motor pins
-const int motorDirPinL = 5; // done
-const int motorPWMPinL = 6; // done
+const int motorDirPinL = 5;
+const int motorPWMPinL = 6;
 const int enablePinL = 7;
-const int channelPinAL = 2; // channel A & B motor kiri
+const int channelPinAL = 2;
 const int channelPinBL = 3;
 const int powerPinL = A0;
-const int motorDirPinR = 9;//done
-const int motorPWMPinR = 10;//done
+const int motorDirPinR = 9;
+const int motorPWMPinR = 10;
 const int enablePinR = 8; 
 const int channelPinAR = 12;
 const int channelPinBR = 13;
