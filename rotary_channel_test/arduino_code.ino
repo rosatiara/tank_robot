@@ -1,4 +1,5 @@
-// motor kiri
+boolean normal = true;
+
 const int motorDirPinL = 5; // done
 const int motorPWMPinL = 6; // done
 const int enablePinL = 7;
@@ -6,7 +7,6 @@ const int channelPinAL = 2; // channel A & B motor kiri
 const int channelPinBL = 3;
 const int powerPinL = A0;
 
-// motor kanan
 const int motorDirPinR = 9;//done
 const int motorPWMPinR = 10;//done
 const int enablePinR = 8; 
@@ -51,8 +51,6 @@ void loop() {
   float error = targetDeg - motorDeg;
   float control = Kp*error;
   
-  doMotor((control>=0)?HIGH:LOW, min(abs(control), 255));
-  
   Serial.print("encoderPos : ");
   Serial.print(encoderPos);
   Serial.print("   motorDeg : ");
@@ -62,7 +60,13 @@ void loop() {
   Serial.print("    control : ");
   Serial.print(control);
   Serial.print("    motorVel : ");
-  Serial.println(min(abs(control), 255)); 
+  Serial.println(min(abs(control), 255));
+  
+  while (normal) {
+    doMotor((control>=0)?HIGH:LOW, min(abs(control), 255)); 
+    }
+    // if (front sensor detected)
+    doMotor((control>=0)?LOW:HIGH, min(abs(control), 255)); 
 }
 
 void doEncoderAL() {  
@@ -82,7 +86,6 @@ void doEncoderBR(){
 void doMotor(bool dir, int vel) {
   digitalWrite(motorDirPinL, dir);
   analogWrite(motorPWMPinL, dir?(255 - vel):vel);
-  
   digitalWrite(motorDirPinR, dir);
   analogWrite(motorPWMPinR, dir?(255 - vel):vel);
 }
