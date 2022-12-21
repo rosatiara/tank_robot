@@ -22,7 +22,7 @@ float Kp = 30;
 float targetDeg = 360;
 
 void setup() {
-  Serial.begin(1200);
+  Serial.begin(115200);
 
   pinMode(powerPinL, OUTPUT);
   digitalWrite(powerPinL, HIGH);
